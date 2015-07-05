@@ -1,0 +1,38 @@
+{
+  "name": "postcss-middleware",
+  "version": "0.0.1",
+  "description": "PostCSS middleware for connect and express frameworks.",
+  "main": "js/middleware.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jedmao/postcss-middleware.git"
+  },
+  "keywords": [
+    "postcss",
+    "middleware",
+    "connect",
+    "express"
+  ],
+  "author": "Jed Mao <jedmao@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jedmao/postcss-middleware/issues"
+  },
+  "homepage": "https://github.com/jedmao/postcss-middleware#readme",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "del": "^1.2.0",
+    "event-stream": "^3.3.1",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^0.15.0",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-mocha": "^2.1.2",
+    "gulp-plumber": "^1.0.1",
+    "gulp-tslint": "^2.0.0",
+    "gulp-typescript": "^2.7.8",
+    "through2": "^2.0.0"
+  }
+}

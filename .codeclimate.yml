@@ -1,0 +1,11 @@
+languages:
+  JavaScript: true
+
+engines:
+  eslint:
+    enabled: true
+
+exclude_paths:
+- "gulpfile.js"
+- "js/*.spec.js"
+- ".tasks/*"
