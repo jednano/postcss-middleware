@@ -1,7 +1,7 @@
 {
   "name": "postcss-middleware",
   "version": "0.0.2",
-  "description": "PostCSS middleware for connect and express frameworks.",
+  "description": "PostCSS middleware for Connect and Express frameworks.",
   "main": "js/middleware.js",
   "scripts": {
     "test": "gulp test"

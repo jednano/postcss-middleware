@@ -8,7 +8,7 @@
 
 [![npm](https://nodei.co/npm/postcss-middleware.svg?downloads=true)](https://nodei.co/npm/postcss-middleware/)
 
-[PostCSS](https://github.com/postcss/postcss) middleware for [connect](https://github.com/senchalabs/connect#readme) and [Express][] frameworks.
+[PostCSS](https://github.com/postcss/postcss) middleware for [Connect](https://github.com/senchalabs/connect#readme) and [Express][] frameworks.
 
 ## Installation
 
