@@ -37,10 +37,10 @@ function PostCssMiddleware(options?: PostCssMiddleware.Options) {
 		}
 
 		vfs.src(options.src(req))
-			.pipe(gulpif(options.generateSourcemaps, sourcemaps.init()))
+			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
 				.pipe(postcss(options.plugins))
 				.pipe(concat('foo.css'))
-			.pipe(gulpif(options.generateSourcemaps, sourcemaps.write()))
+			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.write()))
 			.pipe(tap(file => {
 				res.set('Content-Type', 'text/css');
 				res.status(200).send(file.contents);
@@ -68,7 +68,7 @@ module PostCssMiddleware {
 		/**
 		 * Generate inlined sourcemaps.
 		 */
-		generateSourcemaps?: boolean;
+		inlineSourcemaps?: boolean;
 	}
 }
 

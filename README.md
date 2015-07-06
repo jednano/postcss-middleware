@@ -86,12 +86,12 @@ Required: `true`
 
 An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
 
-#### `generateSourcemaps`
+#### `inlineSourcemaps`
 
 Type: `Boolean`  
 Required: `false`  
 Default: `undefined`
 
-Generate inlined sourcemaps.
+Generate inlined [sourcemaps](https://github.com/floridoo/gulp-sourcemaps).
 
 [Express]: http://expressjs.com/
