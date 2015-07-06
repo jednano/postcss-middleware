@@ -42,9 +42,55 @@ import postcssMiddleware = require('postcss-middleware');
 ### Express
 
 ```js
-// TODO
+var express = require('express');
+var path = require('path');
+var app = express();
+app.use('/css', postcssMiddleware(/* options */));
 ```
 
 ### Options
 
-TODO
+#### `src`
+
+Type: `(request) => string|string[]`
+Required: `true`
+
+A callback function that will be provided the Express app's request object. Use this object to build the file path to the source file(s) you wish to read. The callback can return a glob string or an array of glob strings. All files matched will be concatenated in the response.
+
+```js
+app.use('/css', postcssMiddleware({
+	src: function(req) {
+		return path.join('styles', req.path);
+	}
+});
+```
+
+The above example will match requests to `/css`. If `/css/foo.css` were requested, the middleware would read `/styles/foo.css` in the context of your application.
+
+Using a regular expression [route path](http://expressjs.com/guide/routing.html), we can back-reference a capture group and use it as a folder name.
+
+```js
+app.use(/^\/css\/([a-z-]+)\.css$/, postcssMiddleware({
+	src: function(req) {
+		var folder = req.params[0];
+		return path.join('styles', folder, '*.css');
+	}
+});
+```
+
+If you were to request `/css/foo-bar.css` in the above example, the middleware would concatenate all CSS files in `/styles/foo-bar/*.css` in the response.
+
+#### `plugins`
+
+Type: `Array`
+Required: `true`
+
+An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
+
+#### `generateSourcemaps`
+
+Type: `Boolean`
+Required: `false`
+Default: `undefined`
+
+Generate inlined sourcemaps.

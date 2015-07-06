@@ -19,6 +19,18 @@
     },
     "node/node.d.ts": {
       "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
+    },
+    "vinyl-fs/vinyl-fs.d.ts": {
+      "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
+    },
+    "mime/mime.d.ts": {
+      "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
+    },
+    "vinyl/vinyl.d.ts": {
+      "commit": "625cd68fed45e3230393af71bcde1d36706f3d56"
     }
   }
 }
