@@ -57,10 +57,12 @@ Required: `true`
 A callback function that will be provided the [Express][] [app's](http://expressjs.com/4x/api.html#app) [request](http://expressjs.com/4x/api.html#req) object. Use this object to build the file path to the source file(s) you wish to read. The callback can return [a glob string or an array of glob strings](https://github.com/wearefractal/vinyl-fs#srcglobs-opt). All files matched will be [concatenated](https://github.com/wearefractal/gulp-concat) in the [response](http://expressjs.com/4x/api.html#res.send).
 
 ```js
+var path = require('path');
 app.use('/css', postcssMiddleware({
 	src: function(req) {
 		return path.join('styles', req.path);
-	}
+	},
+	plugins: [/* plugins */]
 });
 ```
 
@@ -69,11 +71,13 @@ The above example will match requests to `/css`. If `/css/foo.css` were requeste
 Using a regular expression [route path](http://expressjs.com/guide/routing.html), we can back-reference a capture group and use it as a folder name.
 
 ```js
+var path = require('path');
 app.use(/^\/css\/([a-z-]+)\.css$/, postcssMiddleware({
 	src: function(req) {
 		var folder = req.params[0];
 		return path.join('styles', folder, '*.css');
-	}
+	},
+	plugins: [/* plugins */]
 });
 ```
 
