@@ -8,14 +8,12 @@
 
 [![npm](https://nodei.co/npm/postcss-middleware.svg?downloads=true)](https://nodei.co/npm/postcss-middleware/)
 
-## Introduction
-
-[PostCSS](https://github.com/postcss/postcss) middleware for [connect](https://github.com/senchalabs/connect#readme) and [express](http://expressjs.com/) frameworks.
+[PostCSS](https://github.com/postcss/postcss) middleware for [connect](https://github.com/senchalabs/connect#readme) and [Express][] frameworks.
 
 ## Installation
 
 ```
-npm install postcss-middleware
+$ npm install postcss-middleware
 ```
 
 ## Usage
@@ -36,14 +34,15 @@ import postcssMiddleware = require('postcss-middleware');
 ### Connect
 
 ```js
-// TODO
+var connect = require('connect');
+var app = connect();
+app.use('/css', postcssMiddleware(/* options */));
 ```
 
 ### Express
 
 ```js
 var express = require('express');
-var path = require('path');
 var app = express();
 app.use('/css', postcssMiddleware(/* options */));
 ```
@@ -52,10 +51,10 @@ app.use('/css', postcssMiddleware(/* options */));
 
 #### `src`
 
-Type: `(request) => string|string[]`
+Type: `(request) => string|string[]`  
 Required: `true`
 
-A callback function that will be provided the Express app's request object. Use this object to build the file path to the source file(s) you wish to read. The callback can return a glob string or an array of glob strings. All files matched will be concatenated in the response.
+A callback function that will be provided the [Express][] [app's](http://expressjs.com/4x/api.html#app) [request](http://expressjs.com/4x/api.html#req) object. Use this object to build the file path to the source file(s) you wish to read. The callback can return [a glob string or an array of glob strings](https://github.com/wearefractal/vinyl-fs#srcglobs-opt). All files matched will be [concatenated](https://github.com/wearefractal/gulp-concat) in the [response](http://expressjs.com/4x/api.html#res.send).
 
 ```js
 app.use('/css', postcssMiddleware({
@@ -78,19 +77,21 @@ app.use(/^\/css\/([a-z-]+)\.css$/, postcssMiddleware({
 });
 ```
 
-If you were to request `/css/foo-bar.css` in the above example, the middleware would concatenate all CSS files in `/styles/foo-bar/*.css` in the response.
+If you were to request `/css/foo-bar.css` in the above example, the middleware would concatenate all CSS files in the `/styles/foo-bar` folder in the response.
 
 #### `plugins`
 
-Type: `Array`
+Type: `Array`  
 Required: `true`
 
 An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
 
 #### `generateSourcemaps`
 
-Type: `Boolean`
-Required: `false`
+Type: `Boolean`  
+Required: `false`  
 Default: `undefined`
 
 Generate inlined sourcemaps.
+
+[Express]: http://expressjs.com/
