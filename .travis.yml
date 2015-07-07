@@ -3,15 +3,14 @@ language: node_js
 node_js:
   - '0.12'
 
+script:
+  - gulp test:ci
+
+after_success:
+  - npm install codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
+
 notifications:
   email:
     on_success: change
     on_failure: always
-
-after_success:
-  - npm install -g codeclimate-test-reporter
-  - codeclimate < coverage/lcov.info
-
-addons:
-  code_climate:
-    repo_token: da19db0ba25a3075eb60768d27df019c16879dc47e3be87c5a943ef64d39f039
