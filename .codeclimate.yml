@@ -7,5 +7,4 @@ engines:
 
 exclude_paths:
 - "gulpfile.js"
-- "js/*.spec.js"
 - ".tasks/*"

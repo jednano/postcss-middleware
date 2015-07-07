@@ -49,10 +49,18 @@ app.use('/css', postcssMiddleware(/* options */));
 
 ### Options
 
+#### `plugins`
+
+Type: `Array`  
+Required: `true`
+
+An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
+
 #### `src`
 
 Type: `(request) => string|string[]`  
-Required: `true`
+Required: `false`  
+Default: `req => path.join(__dirname, req.url)`
 
 A callback function that will be provided the [Express][] [app's](http://expressjs.com/4x/api.html#app) [request](http://expressjs.com/4x/api.html#req) object. Use this object to build the file path to the source file(s) you wish to read. The callback can return [a glob string or an array of glob strings](https://github.com/wearefractal/vinyl-fs#srcglobs-opt). All files matched will be [concatenated](https://github.com/wearefractal/gulp-concat) in the [response](http://expressjs.com/4x/api.html#res.send).
 
@@ -82,13 +90,6 @@ app.use(/^\/css\/([a-z-]+)\.css$/, postcssMiddleware({
 ```
 
 If you were to request `/css/foo-bar.css` in the above example, the middleware would concatenate all CSS files in the `/styles/foo-bar` folder in the response.
-
-#### `plugins`
-
-Type: `Array`  
-Required: `true`
-
-An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
 
 #### `inlineSourcemaps`
 
