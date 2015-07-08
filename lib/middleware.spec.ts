@@ -4,7 +4,6 @@ var connect = require('connect');
 import path = require('path');
 var request = require('supertest');
 import middleware = require('./middleware');
-var postcss = require('postcss');
 
 var expect = chai.expect;
 var ERROR_PREFIX = '[postcss-middleware]';
@@ -16,19 +15,19 @@ describe('creating middleware', () => {
 		expect(middleware).to.throw(`${ERROR_PREFIX} missing required option: plugins`);
 	});
 
-	it('throws an error when plugins option is a string',() => {
+	it('throws an error when plugins option is a string', () => {
 		expect(() => {
 			middleware({ plugins: <any>'foo' });
 		}).to.throw(TypeError, `${ERROR_PREFIX} plugins option must be an array`);
 	});
 
-	it('remains silent when plugins option is an empty array',() => {
+	it('remains silent when plugins option is an empty array', () => {
 		expect(() => {
 			middleware({ plugins: [] });
 		}).not.to.throw(Error);
 	});
 
-	it('throws an error when src option is a string',() => {
+	it('throws an error when src option is a string', () => {
 		expect(() => {
 			middleware({
 				plugins: <any>[],
@@ -114,20 +113,16 @@ describe('the request',() => {
 	it('serves a file processed by all plugins defined in options', done => {
 		request(createServer({
 				plugins: [
-					postcss.plugin('foo-bar-baz', () => {
-						return css => {
-							css.eachDecl('foo', declaration => {
-								declaration.prop = 'baz';
-							});
-						};
-					}),
-					postcss.plugin('foo-baz-qux',() => {
-						return css => {
-							css.eachDecl('baz', declaration => {
-								declaration.value = 'qux';
-							});
-						};
-					})
+					css => {
+						css.eachDecl('foo', declaration => {
+							declaration.prop = 'baz';
+						});
+					},
+					css => {
+						css.eachDecl('baz', declaration => {
+							declaration.value = 'qux';
+						});
+					}
 				]
 			}))
 			.get('/foo.css')
@@ -138,11 +133,9 @@ describe('the request',() => {
 	it('sends a plugin error to the next middleware', done => {
 		request(createServer({
 				plugins: [
-					postcss.plugin('error', () => {
-						return () => {
-							throw new Error('foo');
-						};
-					})
+					() => {
+						throw new Error('foo');
+					}
 				]
 			}))
 			.get('/foo.css')

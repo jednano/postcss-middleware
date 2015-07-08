@@ -4,7 +4,6 @@ var connect = require('connect');
 var path = require('path');
 var request = require('supertest');
 var middleware = require('./middleware');
-var postcss = require('postcss');
 var expect = chai.expect;
 var ERROR_PREFIX = '[postcss-middleware]';
 // ReSharper disable WrongExpressionStatement
@@ -73,31 +72,25 @@ describe('the request', function () {
     it('serves a file processed by all plugins defined in options', function (done) {
         request(createServer({
             plugins: [
-                postcss.plugin('foo-bar-baz', function () {
-                    return function (css) {
-                        css.eachDecl('foo', function (declaration) {
-                            declaration.prop = 'baz';
-                        });
-                    };
-                }),
-                postcss.plugin('foo-baz-qux', function () {
-                    return function (css) {
-                        css.eachDecl('baz', function (declaration) {
-                            declaration.value = 'qux';
-                        });
-                    };
-                })
+                function (css) {
+                    css.eachDecl('foo', function (declaration) {
+                        declaration.prop = 'baz';
+                    });
+                },
+                function (css) {
+                    css.eachDecl('baz', function (declaration) {
+                        declaration.value = 'qux';
+                    });
+                }
             ]
         })).get('/foo.css').expect('body{baz:qux}\n').expect(200, done);
     });
     it('sends a plugin error to the next middleware', function (done) {
         request(createServer({
             plugins: [
-                postcss.plugin('error', function () {
-                    return function () {
-                        throw new Error('foo');
-                    };
-                })
+                function () {
+                    throw new Error('foo');
+                }
             ]
         })).get('/foo.css').expect('foo').expect(500, done);
     });
