@@ -50,6 +50,23 @@ describe('the request', function () {
     it('serves a file with 200 Content-Type: text/css', function (done) {
         request(createServer({ plugins: [] })).get('/foo.css').set('Accept', 'text/css').expect('Content-Type', 'text/css').expect(200, done);
     });
+    it('concatenates a glob src into one file', function (done) {
+        request(createServer({
+            plugins: [],
+            src: function () {
+                return path.join('fixtures', '*.css');
+            }
+        })).get('/foo.css').expect('body{bar:baz}\n\nbody{foo:bar}\n').expect(200, done);
+    });
+    it('inlines sourcemaps when inlineSourcemaps option is true', function (done) {
+        request(createServer({
+            plugins: [],
+            src: function () {
+                return path.join('fixtures', '*.css');
+            },
+            inlineSourcemaps: true
+        })).get('/foo.css').expect(/\/*# sourceMappingURL=data:application\/json;base64,/).expect(200, done);
+    });
     it('serves a file without modification when plugins array is empty', function (done) {
         request(createServer({ plugins: [] })).get('/foo.css').expect('body{foo:bar}\n').expect(200, done);
     });

@@ -79,6 +79,31 @@ describe('the request',() => {
 			.expect(200, done);
 	});
 
+	it('concatenates a glob src into one file', done => {
+		request(createServer({
+				plugins: [],
+				src: () => {
+					return path.join('fixtures', '*.css');
+				}
+			}))
+			.get('/foo.css')
+			.expect('body{bar:baz}\n\nbody{foo:bar}\n')
+			.expect(200, done);
+	});
+
+	it('inlines sourcemaps when inlineSourcemaps option is true', done => {
+		request(createServer({
+				plugins: [],
+				src: () => {
+					return path.join('fixtures', '*.css');
+				},
+				inlineSourcemaps: true
+			}))
+			.get('/foo.css')
+			.expect(/\/*# sourceMappingURL=data:application\/json;base64,/)
+			.expect(200, done);
+	});
+
 	it('serves a file without modification when plugins array is empty', done => {
 		request(createServer({ plugins: [] }))
 			.get('/foo.css')
