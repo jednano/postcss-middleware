@@ -35,12 +35,18 @@ function PostCssMiddleware(options) {
             next(new TypeError("" + ERROR_PREFIX + " src callback must return a glob string or array"));
             return;
         }
+        var isFileFound = false;
         vfs.src(globs).pipe(plumber({ errorHandler: next })).pipe(gulpif(options.inlineSourcemaps, sourcemaps.init())).pipe(postcss(options.plugins)).pipe(concat('.css')).pipe(gulpif(options.inlineSourcemaps, sourcemaps.write())).pipe(tap(function (file) {
+            isFileFound = true;
             res.writeHead(200, {
                 'Content-Type': 'text/css'
             });
             res.end(file.contents);
-        })).on('end', next);
+        })).on('end', function () {
+            if (!isFileFound) {
+                next();
+            }
+        });
     };
 }
 module.exports = PostCssMiddleware;

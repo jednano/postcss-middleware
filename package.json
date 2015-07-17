@@ -1,6 +1,6 @@
 {
   "name": "postcss-middleware",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "PostCSS middleware for Connect and Express frameworks.",
   "main": "js/middleware.js",
   "scripts": {

@@ -44,6 +44,7 @@ function PostCssMiddleware(options?: PostCssMiddleware.Options) {
 			return;
 		}
 
+		var isFileFound = false;
 		vfs.src(globs)
 			.pipe(plumber({ errorHandler: next }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
@@ -51,12 +52,17 @@ function PostCssMiddleware(options?: PostCssMiddleware.Options) {
 				.pipe(concat('.css'))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.write()))
 			.pipe(tap(file => {
+				isFileFound = true;
 				res.writeHead(200, {
 					'Content-Type': 'text/css'
 				});
 				res.end(file.contents);
 			}))
-			.on('end', next);
+			.on('end', () => {
+				if (!isFileFound) {
+					next();
+				}
+			});
 	};
 }
 
