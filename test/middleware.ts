@@ -1,12 +1,11 @@
 ﻿///<reference path='../typings/tsd.d.ts'/>
-import chai = require('chai');
-var connect = require('connect');
-import path = require('path');
-var request = require('supertest');
-import middleware = require('./middleware');
+import { expect } from 'chai';
+const connect = require('connect');
+import { join } from 'path';
+const request = require('supertest');
+import middleware from '../lib/middleware';
 
-var expect = chai.expect;
-var ERROR_PREFIX = '[postcss-middleware]';
+const ERROR_PREFIX = '[postcss-middleware]';
 
 // ReSharper disable WrongExpressionStatement
 describe('creating middleware', () => {
@@ -50,7 +49,7 @@ describe('the request',() => {
 	it('sends an error to the next middleware when src returns undefined', done => {
 		request(createServer({
 				plugins: [],
-				src: () => void(0)
+				src: () => void 0
 			}))
 			.get('/foo.css')
 			.expect(`${ERROR_PREFIX} src callback must return a glob string or array`)
@@ -66,7 +65,7 @@ describe('the request',() => {
 
 	it('resolves src path relative to __dirname by default', done => {
 		request(connect().use(middleware({ plugins: [] })))
-			.get('/../fixtures/foo.css')
+			.get('/../../fixtures/foo.css')
 			.expect(200, done);
 	});
 
@@ -82,7 +81,7 @@ describe('the request',() => {
 		request(createServer({
 				plugins: [],
 				src: () => {
-					return path.join('fixtures', '*.css');
+					return join('fixtures', '*.css');
 				}
 			}))
 			.get('/foo.css')
@@ -94,7 +93,7 @@ describe('the request',() => {
 		request(createServer({
 				plugins: [],
 				src: () => {
-					return path.join('fixtures', '*.css');
+					return join('fixtures', '*.css');
 				},
 				inlineSourcemaps: true
 			}))
@@ -114,12 +113,12 @@ describe('the request',() => {
 		request(createServer({
 				plugins: [
 					css => {
-						css.eachDecl('foo', declaration => {
+						css.walkDecls('foo', declaration => {
 							declaration.prop = 'baz';
 						});
 					},
 					css => {
-						css.eachDecl('baz', declaration => {
+						css.walkDecls('baz', declaration => {
 							declaration.value = 'qux';
 						});
 					}
@@ -147,8 +146,9 @@ describe('the request',() => {
 
 function createServer(options: middleware.Options) {
 	options.src = options.src || (req => {
-		return path.join('fixtures', req.url);
+		return join('fixtures', req.url);
 	});
+	/*eslint-disable no-unused-vars */
 	return connect()
 		.use(middleware(options))
 		// ReSharper disable once UnusedParameter
@@ -156,4 +156,5 @@ function createServer(options: middleware.Options) {
 			res.statusCode = 500;
 			res.end(err.message);
 		});
+	/*eslint-enable no-unused-vars */
 }

@@ -1,21 +1,20 @@
 ///<reference path="../typings/node/node.d.ts" />
 ///<reference path="../typings/vinyl-fs/vinyl-fs.d.ts" />
-import path = require('path');
-import vfs = require('vinyl-fs');
-var sourcemaps = require('gulp-sourcemaps');
-var plumber = require('gulp-plumber');
-var postcss = require('gulp-postcss');
-var concat = require('gulp-concat');
-var tap = require('gulp-tap');
-var gulpif = require('gulp-if');
+import * as path from 'path';
+import * as vfs from 'vinyl-fs';
+const sourcemaps = require('gulp-sourcemaps');
+const plumber = require('gulp-plumber');
+const postcss = require('gulp-postcss');
+const concat = require('gulp-concat');
+const tap = require('gulp-tap');
+const gulpif = require('gulp-if');
 
-var ERROR_PREFIX = '[postcss-middleware]';
+const ERROR_PREFIX = '[postcss-middleware]';
 
 // ReSharper disable once InconsistentNaming
 // ReSharper disable once UnusedLocals
 // ReSharper disable RedundantQualifier
-function PostCssMiddleware(options?: PostCssMiddleware.Options) {
-	options = <PostCssMiddleware.Options>(options || {});
+function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 	// ReSharper enable RedundantQualifier
 
 	if (!options.plugins) {
@@ -30,7 +29,7 @@ function PostCssMiddleware(options?: PostCssMiddleware.Options) {
 		throw new TypeError(`${ERROR_PREFIX} src option must be a function`);
 	}
 
-	var src = options.src || (req => path.join(__dirname, req.url));
+	const src = options.src || (req => path.join(__dirname, req.url));
 
 	return (req, res, next: Function) => {
 		if (req.method !== 'GET' && req.method !== 'HEAD') {
@@ -38,13 +37,13 @@ function PostCssMiddleware(options?: PostCssMiddleware.Options) {
 			return;
 		}
 
-		var globs = src(req);
+		const globs = src(req);
 		if (typeof globs !== 'string' && !Array.isArray(globs)) {
 			next(new TypeError(`${ERROR_PREFIX} src callback must return a glob string or array`));
 			return;
 		}
 
-		var isFileFound = false;
+		let isFileFound = false;
 		vfs.src(globs)
 			.pipe(plumber({ errorHandler: next }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
@@ -89,4 +88,4 @@ module PostCssMiddleware {
 	}
 }
 
-export = PostCssMiddleware;
+export default PostCssMiddleware;

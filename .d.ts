@@ -1,4 +1,4 @@
 declare module 'postcss-middleware' {
-	import PostCssMiddleware = require('d.ts/middleware');
-	export = PostCssMiddleware;
+	import PostCssMiddleware from 'dist/lib/middleware';
+	export default PostCssMiddleware;
 }

@@ -1,14 +1,13 @@
 # postcss-middleware
 
 <img align="right" width="135" height="95"
-     title="Philosopher�s stone, logo of PostCSS"
+     title="Philosopher’s stone, logo of PostCSS"
      src="http://postcss.github.io/postcss/logo-leftp.png">
 
-[![Build Status](https://travis-ci.org/jedmao/postcss-middleware.svg?branch=master)](https://travis-ci.org/jedmao/postcss-middleware)
-[![npm version](https://badge.fury.io/js/postcss-middleware.svg)](http://badge.fury.io/js/postcss-middleware)
-[![Code Climate](https://codeclimate.com/github/jedmao/postcss-middleware/badges/gpa.svg)](https://codeclimate.com/github/jedmao/postcss-middleware)
-[![Test Coverage](https://codeclimate.com/github/jedmao/postcss-middleware/badges/coverage.svg)](https://codeclimate.com/github/jedmao/postcss-middleware)
+[![NPM version](http://img.shields.io/npm/v/postcss-middleware.svg?style=flat)](https://www.npmjs.org/package/postcss-middleware)
 [![npm license](http://img.shields.io/npm/l/postcss-middleware.svg?style=flat-square)](https://www.npmjs.org/package/postcss-middleware)
+[![Travis Build Status](https://img.shields.io/travis/jedmao/postcss-middleware.svg?label=unix)](https://travis-ci.org/jedmao/postcss-middleware)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jedmao/postcss-middleware.svg?label=windows)](https://ci.appveyor.com/project/jedmao/postcss-middleware)
 
 [![npm](https://nodei.co/npm/postcss-middleware.svg?downloads=true)](https://nodei.co/npm/postcss-middleware/)
 
@@ -32,22 +31,22 @@ var postcssMiddleware = require('postcss-middleware');
 
 ```ts
 ///<reference path="node_modules/postcss-middleware/.d.ts" />
-import postcssMiddleware = require('postcss-middleware');
+import postcssMiddleware from 'postcss-middleware';
 ```
 
 ### Connect
 
 ```js
-var connect = require('connect');
-var app = connect();
+const connect = require('connect');
+const app = connect();
 app.use('/css', postcssMiddleware(/* options */));
 ```
 
 ### Express
 
 ```js
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 app.use('/css', postcssMiddleware(/* options */));
 ```
 
@@ -55,15 +54,15 @@ app.use('/css', postcssMiddleware(/* options */));
 
 #### `plugins`
 
-Type: `Array`  
+Type: `Array`
 Required: `true`
 
 An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
 
 #### `src`
 
-Type: `(request) => string|string[]`  
-Required: `false`  
+Type: `(request) => string|string[]`
+Required: `false`
 Default: `req => path.join(__dirname, req.url)`
 
 A callback function that will be provided the [Express][] [app's](http://expressjs.com/4x/api.html#app) [request](http://expressjs.com/4x/api.html#req) object. Use this object to build the file path to the source file(s) you wish to read. The callback can return [a glob string or an array of glob strings](https://github.com/wearefractal/vinyl-fs#srcglobs-opt). All files matched will be [concatenated](https://github.com/wearefractal/gulp-concat) in the [response](http://expressjs.com/4x/api.html#res.send).
@@ -97,8 +96,8 @@ If you were to request `/css/foo-bar.css` in the above example, the middleware w
 
 #### `inlineSourcemaps`
 
-Type: `Boolean`  
-Required: `false`  
+Type: `Boolean`
+Required: `false`
 Default: `undefined`
 
 Generate inlined [sourcemaps](https://github.com/floridoo/gulp-sourcemaps).

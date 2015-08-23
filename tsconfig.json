@@ -1,0 +1,13 @@
+﻿{
+	"compilerOptions": {
+		"target": "es6",
+		"declaration": true,
+		"newLine": "LF",
+		"outDir": "build",
+		"rootDir": "."
+	},
+	"files": [
+		"lib/middleware.ts",
+		"test/middleware.ts"
+	]
+}
