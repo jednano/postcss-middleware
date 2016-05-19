@@ -3,6 +3,7 @@ import { expect } from 'chai';
 const connect = require('connect');
 import { join } from 'path';
 const request = require('supertest');
+const sugarss = require('sugarss');
 import middleware from '../lib/middleware';
 
 const ERROR_PREFIX = '[postcss-middleware]';
@@ -33,6 +34,15 @@ describe('creating middleware', () => {
 				src: <any>'foo'
 			});
 		}).to.throw(TypeError, `${ERROR_PREFIX} src option must be a function`);
+	});
+
+	it('throws an error when options option is a string', () => {
+		expect(() => {
+			middleware({
+				plugins: <any>[],
+				options: <any>'foo'
+			});
+		}).to.throw(TypeError, `${ERROR_PREFIX} options option must be an object`);
 	});
 
 });
@@ -140,6 +150,18 @@ describe('the request',() => {
 			.get('/foo.css')
 			.expect('foo')
 			.expect(500, done);
+	});
+
+	it('applies a postcss options', done => {
+		request(createServer({
+				plugins: [],
+				options: {
+					parser: sugarss
+				}
+			}))
+			.get('/sugar.sss')
+			.expect('body {\n\tfoo: bar\n}\n')
+			.expect(200, done);
 	});
 
 });

@@ -29,6 +29,10 @@ function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 		throw new TypeError(`${ERROR_PREFIX} src option must be a function`);
 	}
 
+	if (options.options && typeof options.options !== 'object') {
+		throw new TypeError(`${ERROR_PREFIX} options option must be an object`);
+	}
+
 	const src = options.src || (req => path.join(__dirname, req.url));
 
 	return (req, res, next: Function) => {
@@ -47,7 +51,7 @@ function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 		vfs.src(globs)
 			.pipe(plumber({ errorHandler: next }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
-				.pipe(postcss(options.plugins))
+				.pipe(postcss(options.plugins, options.options))
 				.pipe(concat('.css'))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.write()))
 			.pipe(tap(file => {
@@ -71,6 +75,10 @@ module PostCssMiddleware {
 		 * An array of PostCSS plugins.
 		 */
 		plugins: Function[];
+		/**
+		 * PostCSS options
+		 */
+		options: Object;
 		/**
 		 * Build the file path to the source file(s) you wish to read.
 		 */
