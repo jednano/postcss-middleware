@@ -59,6 +59,24 @@ Required: `true`
 
 An array of [PostCSS plugins](https://github.com/postcss/postcss#plugins).
 
+#### `options`
+
+Type: `Object`
+Required: `false`
+
+[PostCSS options](https://github.com/postcss/postcss#options) such as `syntax`, `parser` or `map`.
+
+```js
+app.use(postcssMiddleware({
+	plugins: [/* plugins */],
+	options: {
+		parser: require('sugarss'),
+		map: { inline: false }
+	}
+}
+});
+```
+
 #### `src`
 
 Type: `(request) => string|string[]`
