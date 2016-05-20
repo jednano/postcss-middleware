@@ -1,6 +1,6 @@
-import gulp from 'gulp';
-import plumber from 'gulp-plumber';
-import tslint from 'gulp-tslint';
+import * as gulp from 'gulp';
+import * as plumber from 'gulp-plumber';
+import * as tslint from 'gulp-tslint';
 
 export default () => {
 	return gulp.src([

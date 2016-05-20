@@ -1,3 +1,6 @@
+## 1.1.1
+- Convert Babel code to TypeScript, fix build.
+
 ## 1.1.0
 - Pass PostCSS options to middleware [#5](https://github.com/jedmao/postcss-middleware/pull/5).
 

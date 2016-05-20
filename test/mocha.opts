@@ -1,4 +1,4 @@
 --inline-diffs
 --reporter spec
---compilers js:babel-core/register
+--compilers ts:ts-node/register
 build/test/middleware.js

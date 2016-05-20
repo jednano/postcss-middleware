@@ -30,7 +30,6 @@ var postcssMiddleware = require('postcss-middleware');
 ### TypeScript
 
 ```ts
-///<reference path="node_modules/postcss-middleware/.d.ts" />
 import postcssMiddleware from 'postcss-middleware';
 ```
 

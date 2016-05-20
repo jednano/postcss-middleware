@@ -1,4 +1,4 @@
-import del from 'del';
+const del = require('del');
 
 export default done => {
 	del([

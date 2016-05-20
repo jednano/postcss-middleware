@@ -1,7 +1,8 @@
 language: node_js
 
 node_js:
-  - '0.12'
+  - 'node'
+  - '4.4.4'
 
 notifications:
   email:
