@@ -1,8 +1,8 @@
 ﻿///<reference path='../typings/tsd.d.ts'/>
 import { expect } from 'chai';
-const connect = require('connect');
+import * as connect from 'connect';
 import { join } from 'path';
-const request = require('supertest');
+import * as request from 'supertest';
 const sugarss = require('sugarss');
 import middleware from '../lib/middleware';
 

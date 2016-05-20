@@ -1,21 +1,16 @@
-///<reference path="../typings/node/node.d.ts" />
-///<reference path="../typings/vinyl-fs/vinyl-fs.d.ts" />
+///<reference path="../typings/tsd.d.ts" />
 import * as path from 'path';
 import * as vfs from 'vinyl-fs';
-const sourcemaps = require('gulp-sourcemaps');
-const plumber = require('gulp-plumber');
+import * as sourcemaps from 'gulp-sourcemaps';
+import * as plumber from 'gulp-plumber';
 const postcss = require('gulp-postcss');
-const concat = require('gulp-concat');
+import * as concat from 'gulp-concat';
 const tap = require('gulp-tap');
-const gulpif = require('gulp-if');
+import * as gulpif from 'gulp-if';
 
 const ERROR_PREFIX = '[postcss-middleware]';
 
-// ReSharper disable once InconsistentNaming
-// ReSharper disable once UnusedLocals
-// ReSharper disable RedundantQualifier
 function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
-	// ReSharper enable RedundantQualifier
 
 	if (!options.plugins) {
 		throw new Error(`${ERROR_PREFIX} missing required option: plugins`);
@@ -49,7 +44,7 @@ function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 
 		let isFileFound = false;
 		vfs.src(globs)
-			.pipe(plumber({ errorHandler: next }))
+			.pipe(plumber({ errorHandler: err => next(err) }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
 				.pipe(postcss(options.plugins, options.options))
 				.pipe(concat('.css'))
@@ -78,7 +73,7 @@ module PostCssMiddleware {
 		/**
 		 * PostCSS options
 		 */
-		options: Object;
+		options?: Object;
 		/**
 		 * Build the file path to the source file(s) you wish to read.
 		 */
