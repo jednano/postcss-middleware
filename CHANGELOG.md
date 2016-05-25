@@ -1,3 +1,6 @@
+## 1.1.2
+- Fix module resolution (fixes [`#7`](https://github.com/jedmao/postcss-middleware/issues/7)).
+
 ## 1.1.1
 - Convert Babel code to TypeScript, fix build.
 

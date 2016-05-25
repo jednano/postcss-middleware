@@ -4,7 +4,7 @@ import * as connect from 'connect';
 import { join } from 'path';
 import * as request from 'supertest';
 const sugarss = require('sugarss');
-import middleware from '../lib/middleware';
+import * as middleware from '../lib/middleware';
 
 const ERROR_PREFIX = '[postcss-middleware]';
 

@@ -30,7 +30,7 @@ var postcssMiddleware = require('postcss-middleware');
 ### TypeScript
 
 ```ts
-import postcssMiddleware from 'postcss-middleware';
+import * as postcssMiddleware from 'postcss-middleware';
 ```
 
 ### Connect

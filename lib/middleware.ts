@@ -91,4 +91,4 @@ module PostCssMiddleware {
 	}
 }
 
-export default PostCssMiddleware;
+export = PostCssMiddleware;

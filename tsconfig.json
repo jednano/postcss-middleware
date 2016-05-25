@@ -1,6 +1,7 @@
 ﻿{
 	"compilerOptions": {
 		"module": "commonjs",
+		"moduleResolution": "node",
 		"target": "es5",
 		"declaration": true,
 		"newLine": "LF",
