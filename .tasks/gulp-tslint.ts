@@ -1,6 +1,6 @@
 import * as gulp from 'gulp';
 import * as plumber from 'gulp-plumber';
-import * as tslint from 'gulp-tslint';
+import tslint from 'gulp-tslint';
 
 export default () => {
 	return gulp.src([
@@ -8,6 +8,8 @@ export default () => {
 			'test/**/*.ts'
 		])
 		.pipe(plumber())
-		.pipe(tslint())
-		.pipe(tslint.report('verbose'));
+		.pipe(tslint({
+			formatter: 'verbose'
+		}))
+		.pipe(tslint.report());
 };

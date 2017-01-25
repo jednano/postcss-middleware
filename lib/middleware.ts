@@ -1,11 +1,10 @@
-///<reference path="../typings/tsd.d.ts" />
 import * as path from 'path';
 import * as vfs from 'vinyl-fs';
 import * as sourcemaps from 'gulp-sourcemaps';
 import * as plumber from 'gulp-plumber';
-const postcss = require('gulp-postcss');
+import * as postcss from 'gulp-postcss';
 import * as concat from 'gulp-concat';
-const tap = require('gulp-tap');
+import * as tap from 'gulp-tap';
 import * as gulpif from 'gulp-if';
 
 const ERROR_PREFIX = '[postcss-middleware]';
@@ -43,7 +42,7 @@ function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 		}
 
 		let isFileFound = false;
-		vfs.src(globs)
+		vfs.src(globs, <any>{ allowEmpty: true })
 			.pipe(plumber({ errorHandler: err => next(err) }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
 				.pipe(postcss(options.plugins, options.options))

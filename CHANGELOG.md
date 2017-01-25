@@ -1,3 +1,6 @@
+## 1.1.3
+- Update dependencies (fixes [`#9`](https://github.com/jedmao/postcss-middleware/issues/9)).
+
 ## 1.1.2
 - Fix module resolution (fixes [`#7`](https://github.com/jedmao/postcss-middleware/issues/7)).
 

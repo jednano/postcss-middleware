@@ -6,7 +6,11 @@
 		"declaration": true,
 		"newLine": "LF",
 		"outDir": "build",
-		"rootDir": "."
+		"rootDir": ".",
+		"lib": [
+			"es2015",
+			"dom"
+		]
 	},
 	"files": [
 		"lib/middleware.ts",
