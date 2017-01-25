@@ -1,14 +1,12 @@
-﻿///<reference path='../typings/tsd.d.ts'/>
-import { expect } from 'chai';
+﻿import { expect } from 'chai';
 import * as connect from 'connect';
 import { join } from 'path';
 import * as request from 'supertest';
-const sugarss = require('sugarss');
+import * as sugarss from 'sugarss';
 import * as middleware from '../lib/middleware';
 
 const ERROR_PREFIX = '[postcss-middleware]';
 
-// ReSharper disable WrongExpressionStatement
 describe('creating middleware', () => {
 
 	it('throws an error when plugins option is not provided', () => {
@@ -108,7 +106,7 @@ describe('the request',() => {
 				inlineSourcemaps: true
 			}))
 			.get('/foo.css')
-			.expect(/\/*# sourceMappingURL=data:application\/json;base64,/)
+			.expect(/\/*# sourceMappingURL=data:application\/json;charset=utf8;base64,/)
 			.expect(200, done);
 	});
 
@@ -173,7 +171,6 @@ function createServer(options: middleware.Options) {
 	/*eslint-disable no-unused-vars */
 	return connect()
 		.use(middleware(options))
-		// ReSharper disable once UnusedParameter
 		.use((err, req, res, next) => {
 			res.statusCode = 500;
 			res.end(err.message);

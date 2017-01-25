@@ -3,16 +3,11 @@
 *.sln*
 *.suo
 build/
-coverage/
 lib/
 test/
 !dist/lib
 !dist/d.ts/lib
 scripts/
-typings/chai/
-typings/mocha/
-typings/sinon/
-typings/sinon-chai/
 appveyor.yml
 gulpfile.babel.js
 jsconfig.json
