@@ -50,7 +50,11 @@ describe('the request',() => {
 	it('moves to the next middleware when request method is POST', done => {
 		request(createServer({ plugins: [] }))
 			.post('/foo.css')
-			.expect('Cannot POST /foo.css\n')
+			.expect(res => {
+				if (!res.error.message.match(/Cannot POST \/foo\.css/i)) {
+					throw new Error(res.error.message);
+				}
+			})
 			.expect(404, done);
 	});
 
@@ -67,7 +71,11 @@ describe('the request',() => {
 	it('moves to the next middleware when the file is not found', done => {
 		request(createServer({ plugins: [] }))
 			.get('/does-not-exist.css')
-			.expect('Cannot GET /does-not-exist.css\n')
+			.expect(res => {
+				if (!res.error.message.match(/Cannot GET \/does-not-exist.css/i)) {
+					throw new Error(res.error.message);
+				}
+			})
 			.expect(404, done);
 	});
 
