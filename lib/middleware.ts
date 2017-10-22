@@ -42,7 +42,13 @@ function PostCssMiddleware(options: PostCssMiddleware.Options = <any>{}) {
 		}
 
 		let isFileFound = false;
-		vfs.src(globs, <any>{ allowEmpty: true })
+		vfs.src(globs, <any>{ allowEmpty: false })
+			.on('error', err => {
+				if (err.message.match(/File not found/i)) {
+					return next();
+				}
+				return next(err);
+			})
 			.pipe(plumber({ errorHandler: err => next(err) }))
 			.pipe(gulpif(options.inlineSourcemaps, sourcemaps.init()))
 				.pipe(postcss(options.plugins, options.options))
