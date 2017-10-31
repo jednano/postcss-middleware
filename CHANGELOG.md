@@ -1,3 +1,6 @@
+## 1.1.4
+- Update dependencies.
+
 ## 1.1.3
 - Update dependencies (fixes [`#9`](https://github.com/jedmao/postcss-middleware/issues/9)).
 
