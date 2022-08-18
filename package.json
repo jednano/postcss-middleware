@@ -55,7 +55,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-plumber": "^1.1.0",
-    "gulp-postcss": "^7.0.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-tap": "^1.0.1",
     "vinyl-fs": "^2.4.4"
